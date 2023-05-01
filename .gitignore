@@ -1,2 +1,5 @@
 # virtual env
 env
+
+# stored attributes from OS
+.DS_store
