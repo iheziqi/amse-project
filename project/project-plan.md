@@ -38,3 +38,4 @@ The results depict Germany-wide traffic flows for an average working day. The tr
 
 1. Find datasource [#2](https://github.com/iheziqi/amse-project/issues/2)
 2. Finish project plan (for now week2) [#3](https://github.com/iheziqi/amse-project/issues/3)
+3. Build an automated pipeline [#7](https://github.com/iheziqi/amse-project/issues/7)
