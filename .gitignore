@@ -3,3 +3,6 @@ env
 
 # stored attributes from OS
 .DS_store
+
+# database file
+database.sqlite3
