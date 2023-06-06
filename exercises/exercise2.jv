@@ -1,0 +1,79 @@
+pipeline Haltestellen {
+
+	HaltestellenExtractor
+		-> TextFileInterpreter
+		-> FileInterpreter 
+		-> HaltestellenTableInterpreter
+		-> TableLoader;
+
+	// Extract csv file from the website
+	block HaltestellenExtractor oftype HttpExtractor {
+		url: "https://download-data.deutschebahn.com/static/datasets/haltestellen/D_Bahnhof_2020_alle.CSV";
+	}
+
+	//The output type "File" of HttpExtractor is incompatible with the input type "TextFile" of CSVInterpreter
+	block TextFileInterpreter oftype TextFileInterpreter {}
+
+	// The delimiter for values in the csv file.
+	block FileInterpreter oftype CSVInterpreter {
+		delimiter: ";";
+	}
+
+	// Interprets file as table.
+	block HaltestellenTableInterpreter oftype TableInterpreter {
+		header: true;
+		// Drop "Status" column
+		columns: [
+			"EVA_NR" oftype integer,
+			"DS100" oftype text,
+			"IFOPT" oftype IFOPT,
+			"Verkehr" oftype Verkehr,
+			"Laenge" oftype Coordinate,
+			"Breite" oftype Coordinate,
+			"Betreiber_Name" oftype text,
+			"Betreiber_Nr" oftype integer,	
+		];
+	}
+
+	block TableLoader oftype SQLiteLoader {
+		table: "trainstops";
+		file: "./trainstops.sqlite";
+	}
+}
+
+// Value Validation
+// Valid "Verkehr" values are "FV", "RV", "nur DPN".
+constraint ValidVerkehr oftype AllowlistConstraint {
+	allowlist: ["FV", "RV", "nur DPN"];
+}
+
+// Valid "Laenge", "Breite" values are geographic coordinate system values between -90 and 90
+constraint ValidGeoCoordinate oftype RangeConstraint {
+	lowerBound: -90;
+	upperBound: 90;
+}
+
+// Valid "IFOPT" values follow this pattern:
+// <exactly two characters>:<any amount of numbers>:<any amount of numbers><optionally another colon followed by any amount of numbers>
+constraint ValidIFOPT oftype RegexConstraint {
+	regex: /[a-z]{2}:\d+:\d+(:\d+)?$/;
+}
+
+// Custom data type
+valuetype Verkehr oftype text {
+	constraints: [
+		ValidVerkehr
+	];
+}
+
+valuetype Coordinate oftype decimal {
+	constraints: [
+		ValidGeoCoordinate
+	];
+}
+
+valuetype IFOPT oftype text {
+	constraints: [
+		ValidIFOPT
+	];
+}
