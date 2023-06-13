@@ -9,7 +9,7 @@ After the analysis, the following questions should have an answer.
 
 - How old are the passengers using public transport.
 - Where do they go?
-- why do they go?
+- Why do they go?
 
 ## Rationale
 
@@ -31,6 +31,13 @@ After the analysis, the following questions should have an answer.
 
 This dataset contains preliminary results of the national passenger transport demand model DEMO in the form of traffic flow matrices between the 400 urban and rural districts in Germany. It is published by the German Aerospace Center (DLR).
 The results depict Germany-wide traffic flows for an average working day. The traffic flows are broken down by trip purpose and age group per origin/destination relation.
+
+### Datasource2: Liste der Landkreise in Deutschland
+
+- Data URL: https://de.wikipedia.org/wiki/Liste_der_Landkreise_in_Deutschland
+- Data Type: html table
+
+Because in the dataset of national passenger transport demand there are only ids of counties but no names, I need this dataset to map county id to county name.
 
 ## Work Packages
 
