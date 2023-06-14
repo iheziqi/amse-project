@@ -46,3 +46,6 @@ Because in the dataset of national passenger transport demand there are only ids
 1. Find datasource [#2](https://github.com/iheziqi/amse-project/issues/2)
 2. Finish project plan (for now week2) [#3](https://github.com/iheziqi/amse-project/issues/3)
 3. Build an automated pipeline [#7](https://github.com/iheziqi/amse-project/issues/7)
+4. Add automated tests [#8](https://github.com/iheziqi/amse-project/issues/8)
+5. Data Exploration [#9](https://github.com/iheziqi/amse-project/issues/9)
+6. CI pipeline with GitHub action [#10](https://github.com/iheziqi/amse-project/issues/10)

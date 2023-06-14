@@ -1,0 +1,28 @@
+name: project-pipeline
+
+on:
+  push:
+    branches:
+    - main
+    path:
+    - data/**
+    - project/**
+
+jobs:
+  automated-tests:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        path: main
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.11
+
+    - name: Run tests
+      run: |
+        chmod +x ./project/test.sh
+        ./project/test.sh
