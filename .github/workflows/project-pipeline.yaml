@@ -25,4 +25,4 @@ jobs:
     - name: Run tests
       run: |
         chmod +x ./project/tests.sh
-        ./project/test.sh
+        ./project/tests.sh
