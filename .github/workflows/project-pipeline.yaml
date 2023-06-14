@@ -25,6 +25,9 @@ jobs:
     - name: find where we are
       run: pwd
 
+    - name: list all files 
+      run: ls
+
     - name: Run tests
       run: |
         chmod +x ./project/tests.sh
