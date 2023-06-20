@@ -1,5 +1,5 @@
 import pandas as pd
-from sqlalchemy import create_engine
+import sqlalchemy
 
 DATA_URL = 'https://www-genesis.destatis.de/genesis/downloads/00/tables/46251-0021_00.csv'
 COLUMNS_TO_KEEP_NUMBERS = [0, 1, 2, 12, 22, 32, 42, 52, 62, 72]
@@ -46,10 +46,21 @@ def data_validation(data):
 
 def data_write(data):
     # Create the SQLAlchemy engine
-    engine = create_engine("sqlite:///cars.sqlite")
+    engine = sqlalchemy.create_engine("sqlite:///cars.sqlite")
 
     # Write the DataFrame to the SQLite database
-    data.to_sql("cars", engine, if_exists="replace", index=False)
+    data.to_sql("cars", engine, if_exists="replace", index=False,
+                type={
+                    "date": sqlalchemy.TEXT,
+                    "name": sqlalchemy.TEXT,
+                    "CIN": sqlalchemy.TEXT,
+                    'petrol': sqlalchemy.BIGINT,
+                    'diesel': sqlalchemy.BIGINT,
+                    'gas': sqlalchemy.BIGINT,
+                    'electro': sqlalchemy.BIGINT,
+                    'hybrid': sqlalchemy.BIGINT,
+                    'plugInHybrid': sqlalchemy.BIGINT,
+                    'others': sqlalchemy.BIGINT})
 
 
 def main():
