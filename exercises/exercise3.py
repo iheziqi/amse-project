@@ -15,8 +15,8 @@ def data_extraction(data_url, column_numbers, rename_list):
                 Rename them.
     '''
     df = pd.read_csv(data_url, skiprows=6, skipfooter=4,
-                     encoding='iso-8859-15', engine='python', sep=';')
-    df = df.iloc[:, column_numbers]
+                     encoding='iso-8859-15', engine='python', sep=';', usecols=column_numbers, dtype=str, na_values=["-", "nan", "NaN"], keep_default_na=True)
+    # df = df.iloc[:, column_numbers]
     df.columns = rename_list
     return df
 
