@@ -50,7 +50,7 @@ def data_write(data):
 
     # Write the DataFrame to the SQLite database
     data.to_sql("cars", engine, if_exists="replace", index=False,
-                type={
+                dtype={
                     "date": sqlalchemy.TEXT,
                     "name": sqlalchemy.TEXT,
                     "CIN": sqlalchemy.TEXT,
